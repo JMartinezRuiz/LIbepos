@@ -1,52 +1,59 @@
 # LibrePOS
 
-LibrePOS es un punto de venta local para restaurante. Incluye venta por mesas y para llevar, comandas digitales, cocina, caja, inventario, catalogo, usuarios, fichaje, exportacion de datos y sincronizacion por red WiFi.
+LibrePOS is a local point-of-sale app for restaurants. It handles table service,
+takeout orders, kitchen tickets, checkout, inventory, product catalogs, users,
+staff clock-ins, data export, and LAN sync over WiFi.
 
-## Documentacion
+## Documentation
 
-- [Guia de usuario](docs/USUARIO.md): flujo diario para meseros, cocina, caja y administradores.
-- [Administracion y mantenimiento](docs/ADMINISTRACION.md): instalacion, datos locales, respaldos, restauracion, actualizaciones y seguridad.
-- [Desarrollo](docs/DESARROLLO.md): estructura del proyecto, comandos, arquitectura y checklist de release.
-- [API local](docs/API_LOCAL.md): endpoints internos usados por la app para sincronizacion, login y actualizaciones.
+- [User guide](docs/USUARIO.md): daily workflows for servers, kitchen, checkout, and admins.
+- [Administration and maintenance](docs/ADMINISTRACION.md): installation, local data, backups, recovery, updates, and security.
+- [Development](docs/DESARROLLO.md): project structure, commands, architecture, and release checklist.
+- [Local API](docs/API_LOCAL.md): internal endpoints used by the app for sync, login, and updates.
 
-## Inicio rapido
+The extended docs are still written in Spanish because they were created for the
+current operators. The public README is in English for GitHub visitors.
+
+## Quick Start
 
 ### macOS
 
-1. Abre `Instalar LibrePOS.command`.
-2. Cuando termine, abre `Abrir LibrePOS.command`.
-3. El navegador abrira `http://localhost:5173/`.
+1. Open `Instalar LibrePOS.command`.
+2. When it finishes, open `Abrir LibrePOS.command`.
+3. The browser opens `http://localhost:5173/`.
 
 ### Windows
 
-1. Abre `Instalar LibrePOS.bat`.
-2. Cuando termine, abre `Abrir LibrePOS.bat`.
-3. El navegador abrira `http://localhost:5173/`.
+1. Open `Instalar LibrePOS.bat`.
+2. When it finishes, open `Abrir LibrePOS.bat`.
+3. The browser opens `http://localhost:5173/`.
 
-Los archivos `.bat` de Windows no dependen de Python. Funcionan con Node.js/npm directamente, asi que no importa si tienes Python 3.14.4 u otra version instalada.
+The Windows `.bat` launchers use Node.js/npm directly. They do not depend on
+Python.
 
-## Login inicial
+## Initial Login
 
 ```text
-Usuario: admin
-Contrasena: admin
+Username: admin
+Password: admin
 ```
 
-Cambia la contrasena desde `Usuarios` antes de usar LibrePOS en operacion real.
+Change the admin password from `Usuarios` before using LibrePOS in a real
+restaurant.
 
-## Acceso desde telefono o tablet
+## Phone And Tablet Access
 
-El equipo que corre LibrePOS actua como servidor local. En otros dispositivos de la misma red WiFi no uses `localhost`; usa la IP que muestra la ventana al arrancar, por ejemplo:
+The computer running LibrePOS works as the local server. Other devices on the
+same WiFi network should not use `localhost`; use the server IP shown in the
+startup window, for example:
 
 ```text
 http://192.168.1.73:5173/
 ```
 
-La red debe permitir conexiones al puerto `5173` del equipo servidor.
+The local network and firewall must allow inbound connections to port `5173`.
 
-## Instalacion manual
-
-Si prefieres terminal:
+## Manual Setup
 
 ```bash
 npm install
@@ -54,33 +61,43 @@ npm run build
 npm start
 ```
 
-Comandos disponibles:
+Available commands:
 
 ```bash
-npm start      # servidor local Vite en 0.0.0.0:5173
-npm run build  # compilacion de produccion en dist/
+npm start      # local Vite server on 0.0.0.0:5173
+npm run build  # production build in dist/
 npm run preview
-npm run update # actualizacion desde GitHub
+npm run update # update from GitHub
 ```
 
-## Datos locales
+## Local Data
 
-Los datos reales del restaurante se guardan localmente en:
+Restaurant data is stored locally in:
 
 ```text
 .librepos/state.json
 ```
 
-La carpeta `.librepos/` esta ignorada por Git para no publicar ventas, usuarios, tokens ni informacion de operacion. Para migrar el POS a otro equipo y conservar datos completos, copia la carpeta `.librepos/` con el servidor detenido.
+The `.librepos/` directory is ignored by Git so sales, users, tokens, and
+operational data are not published. To move the POS to another computer, stop
+the server and copy the full `.librepos/` directory.
 
-## Actualizaciones
+## Updates
 
-LibrePOS consulta `https://github.com/JMartinezRuiz/LIbepos` y muestra el boton `Actualizar` solo a usuarios admin cuando hay cambios nuevos en la rama `main`.
+LibrePOS checks `https://github.com/JMartinezRuiz/LIbepos` and shows the
+`Actualizar` button only to admin users when the `main` branch has new changes.
 
-Al actualizar se descargan los archivos del proyecto, se ejecuta `npm install` y se conserva completa la carpeta `.librepos/`, por lo que ventas, mesas, usuarios, inventario, fichajes y datos locales no se borran. Tras actualizar, cierra y vuelve a abrir LibrePOS para cargar tambien los cambios del servidor local.
+Updates download the project files, run `npm install`, and keep the full
+`.librepos/` directory in place. Sales, tables, users, inventory, clock-ins, and
+other local data are preserved. After an update, close and reopen LibrePOS so
+the local server reloads the new code.
 
-La version visible en la pantalla sale de `package.json` y se muestra como `vX.Y.Z`. Cada update publicado debe aumentar el campo `version` en `package.json` y `package-lock.json` antes de subirlo a GitHub.
+The visible app version comes from `package.json` and is shown as `vX.Y.Z`.
+Every published update should bump `version` in both `package.json` and
+`package-lock.json`.
 
-## Seguridad local
+## Security Notes
 
-LibrePOS esta pensado para uso local en una red WiFi de confianza. No lo expongas a internet publico. Protege el equipo servidor, cambia la contrasena inicial de `admin` y guarda los respaldos fuera del equipo donde corre el POS.
+LibrePOS is designed for trusted local networks. Do not expose port `5173` to
+the public internet. Protect the server computer, change the initial admin
+password, and keep backups outside the machine running the POS.
