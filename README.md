@@ -4,6 +4,8 @@ LibrePOS is a local point-of-sale app for restaurants. It handles table service,
 takeout orders, kitchen tickets, checkout, inventory, product catalogs, users,
 staff clock-ins, data export, and LAN sync over WiFi.
 
+![LibrePOS demo showing a fictional restaurant opening a table, adding dishes, sending a kitchen ticket, and closing a sale](assets/librepos-demo.gif)
+
 ## Documentation
 
 - [User guide](docs/USUARIO.md): daily workflows for servers, kitchen, checkout, and admins.
