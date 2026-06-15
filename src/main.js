@@ -649,7 +649,7 @@ const defaultState = {
   updateBusy: false,
   settings: {
     restaurantName: "LibrePOS",
-    subtitle: "Los Tatas · POS restaurante",
+    subtitle: "POS restaurante",
     theme: "tatias",
     ticketPrinterName: "",
     commandPrinterName: "",
@@ -2588,13 +2588,14 @@ function availableNavItems() {
 }
 
 function renderLogin() {
+  const restaurantName = state.settings?.restaurantName || "LibrePOS";
   return `
     <main class="login-shell">
       <section class="login-panel">
         <div class="brand-lockup login-brand">
-          <div class="brand-mark"><img src="${BRAND_IMAGE}" alt="Los Tatas" /></div>
+          <div class="brand-mark"><img src="${BRAND_IMAGE}" alt="${escapeAttr(restaurantName)}" /></div>
           <div class="brand-copy">
-            <h1 class="brand-title"><span>LibrePOS</span><span class="brand-badge">Los Tatas</span><span class="version-badge">v${escapeHtml(APP_VERSION)}</span></h1>
+            <h1 class="brand-title"><span>LibrePOS</span><span class="brand-badge">${escapeHtml(restaurantName)}</span><span class="version-badge">v${escapeHtml(APP_VERSION)}</span></h1>
             <p class="brand-subtitle">Acceso al punto de venta</p>
           </div>
         </div>
@@ -2635,6 +2636,7 @@ function renderUpdateButton() {
 
 function renderHeader() {
   const user = currentUser();
+  const restaurantName = state.settings?.restaurantName || "LibrePOS";
   const updateButton = renderUpdateButton();
   const navEntries = [
     ...availableNavItems().map(([view, label, icon]) => ({ type: "nav", view, label, icon })),
@@ -2660,11 +2662,11 @@ function renderHeader() {
   return `
     <header class="topbar">
       <div class="brand-lockup">
-        <div class="brand-mark"><img src="${BRAND_IMAGE}" alt="Los Tatas" /></div>
+        <div class="brand-mark"><img src="${BRAND_IMAGE}" alt="${escapeAttr(restaurantName)}" /></div>
         <div class="brand-copy">
           <h1 class="brand-title">
-            <span>${escapeHtml(state.settings.restaurantName)}</span>
-            <span class="brand-badge">Los Tatas</span>
+            <span>LibrePOS</span>
+            <span class="brand-badge">${escapeHtml(restaurantName)}</span>
             <span class="version-badge">v${escapeHtml(APP_VERSION)}</span>
           </h1>
           <p class="brand-subtitle">${escapeHtml(state.settings.subtitle)} · ${escapeHtml(user.name)}</p>
